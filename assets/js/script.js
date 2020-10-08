@@ -63,6 +63,7 @@ function generateOption(theOptionumber){
     var optionEl = document.createElement("button");
     optionEl.innerText = "Option " + theOptionumber;
     optionEl.className = "quiz-button";
+    optionEl.setAttribute("data-button-id",theOptionumber);
     return optionEl;
 }
 
@@ -70,11 +71,28 @@ function generateOption(theOptionumber){
 var countdownTimer = setInterval(function(){
     if(timer > 0){
         timer --;
-        console.log(timer);
         timerEl.textContent  = "Time: " + timer;
     }else{
         clearInterval(countdownTimer)
     }
 }, 1000);
 
+//Check which button was clicked
+function optionSelectorHandler(event){
+    //console.log(event.target);
+    //Check if and which buttons were clicked
+    if(event.target.getAttribute("data-button-id") == 1){
+        console.log("You have clicked option 1!");
+    }
+    if(event.target.getAttribute("data-button-id") == 2){
+        console.log("You have clicked option 1!");
+    }
+    if(event.target.getAttribute("data-button-id") == 3){
+        console.log("You have clicked option 1!");
+    }
+    if(event.target.getAttribute("data-button-id") == 4){
+        console.log("You have clicked option 1!");
+    }
+}
+mainContentEl.addEventListener("click", optionSelectorHandler);
 generateQuiz();
