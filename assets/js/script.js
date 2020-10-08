@@ -1,5 +1,9 @@
 mainContentEl = document.querySelector(".main-content");
-//console.log(mainContentEl);
+//Find the timer
+var timerEl = document.querySelector("#timer");
+console.log(timerEl);
+//Global Timer Variable
+var timer = 10;
 
 //Genetate the introduction text
 function generateIntro(){
@@ -54,12 +58,23 @@ function generateQuiz() {
     //add to main
     mainContentEl.appendChild(divWrapperEl);
 }
-//Generate an option for the 
+//Generate an option for the quiz
 function generateOption(theOptionumber){
     var optionEl = document.createElement("button");
     optionEl.innerText = "Option " + theOptionumber;
     optionEl.className = "quiz-button";
     return optionEl;
 }
+
+//Decrement the timer every second
+var countdownTimer = setInterval(function(){
+    if(timer > 0){
+        timer --;
+        console.log(timer);
+        timerEl.textContent  = "Time: " + timer;
+    }else{
+        clearInterval(countdownTimer)
+    }
+}, 1000);
 
 generateQuiz();
