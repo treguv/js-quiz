@@ -85,13 +85,13 @@ function optionSelectorHandler(event){
         console.log("You have clicked option 1!");
     }
     if(event.target.getAttribute("data-button-id") == 2){
-        console.log("You have clicked option 1!");
+        console.log("You have clicked option 2!");
     }
     if(event.target.getAttribute("data-button-id") == 3){
-        console.log("You have clicked option 1!");
+        console.log("You have clicked option 3!");
     }
     if(event.target.getAttribute("data-button-id") == 4){
-        console.log("You have clicked option 1!");
+        console.log("You have clicked option 4!");
     }
 }
 mainContentEl.addEventListener("click", optionSelectorHandler);
