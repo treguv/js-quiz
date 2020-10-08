@@ -3,7 +3,10 @@ mainContentEl = document.querySelector(".main-content");
 var timerEl = document.querySelector("#timer");
 console.log(timerEl);
 //Global Timer Variable
-var timer = 10;
+var timer = 100;
+//Global sore variable
+
+//place holder for generated start button
 
 //Genetate the introduction text
 function generateIntro(){
@@ -27,6 +30,8 @@ function generateIntro(){
     var startButtonEl = document.createElement("button");
     startButtonEl.innerText = "Start";
     startButtonEl.id = "start";
+    //Make event handler
+    startButtonEl.addEventListener("click", quizStartHandler);
     //Add Button
     divWrapperEl.appendChild(startButtonEl);
     //Add div onto page
@@ -44,10 +49,11 @@ function removeIntro(){
 //generate the quiz slide
 function generateQuiz() {
     var divWrapperEl = document.createElement("div");
+    divWrapperEl.className="text-wrapper";
     //Make <h2>
     var h2El = document.createElement("h2");
     h2El.className = "quiz-header";
-    h2El.textContent = "This is a sample question. I hope it works!";
+    h2El.textContent = "This is a sample question. I hope it works!" + timer;
     //add to div
     divWrapperEl.appendChild(h2El);
     for(var i = 1; i <= 4; i++){
@@ -68,31 +74,51 @@ function generateOption(theOptionumber){
 }
 
 //Decrement the timer every second
-var countdownTimer = setInterval(function(){
-    if(timer > 0){
-        timer --;
-        timerEl.textContent  = "Time: " + timer;
-    }else{
-        clearInterval(countdownTimer)
-    }
-}, 1000);
+function startTimer(){
+    var countdownTimer = setInterval(function(){
+        if(timer > 0){
+            timer --;
+            timerEl.textContent  = "Time: " + timer;
+        }else{
+            clearInterval(countdownTimer)
+        }
+    }, 1000);
+}
+
 
 //Check which button was clicked
 function optionSelectorHandler(event){
     //console.log(event.target);
     //Check if and which buttons were clicked
+    //Call method to check if right, andthen make another quiz
     if(event.target.getAttribute("data-button-id") == 1){
         console.log("You have clicked option 1!");
+        generateNextQuestion()
     }
     if(event.target.getAttribute("data-button-id") == 2){
         console.log("You have clicked option 2!");
+        generateNextQuestion()
     }
     if(event.target.getAttribute("data-button-id") == 3){
         console.log("You have clicked option 3!");
+        generateNextQuestion()
     }
     if(event.target.getAttribute("data-button-id") == 4){
         console.log("You have clicked option 4!");
+        generateNextQuestion()
     }
 }
+
+//Call methid to clear intro and start quiz
+function quizStartHandler(){
+    document.querySelector(".text-wrapper").remove();
+    startTimer();
+    generateQuiz();
+}
+//When a button is clicked this will reset it to the next question
+function generateNextQuestion(){
+    document.querySelector(".text-wrapper").remove();
+    generateQuiz();
+}
 mainContentEl.addEventListener("click", optionSelectorHandler);
-generateQuiz();
+generateIntro();
