@@ -5,7 +5,7 @@ console.log(timerEl);
 //Global Timer Variable
 var timer = 100;
 //Global sore variable
-
+var score = 0; 
 //place holder for generated start button
 
 //Genetate the introduction text
@@ -93,18 +93,22 @@ function optionSelectorHandler(event){
     //Call method to check if right, andthen make another quiz
     if(event.target.getAttribute("data-button-id") == 1){
         console.log("You have clicked option 1!");
+        score += 10;
         generateNextQuestion()
     }
     if(event.target.getAttribute("data-button-id") == 2){
         console.log("You have clicked option 2!");
+        score += 15;
         generateNextQuestion()
     }
     if(event.target.getAttribute("data-button-id") == 3){
         console.log("You have clicked option 3!");
+        score += 5;
         generateNextQuestion()
     }
     if(event.target.getAttribute("data-button-id") == 4){
         console.log("You have clicked option 4!");
+        score += 20;
         generateNextQuestion()
     }
 }
@@ -117,8 +121,13 @@ function quizStartHandler(){
 }
 //When a button is clicked this will reset it to the next question
 function generateNextQuestion(){
+    updateScore();
     document.querySelector(".text-wrapper").remove();
     generateQuiz();
+}
+function updateScore(){
+    var scoreEl = document.querySelector("#score");
+    scoreEl.textContent = "Score: " + score;
 }
 mainContentEl.addEventListener("click", optionSelectorHandler);
 generateIntro();

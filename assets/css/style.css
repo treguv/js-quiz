@@ -16,6 +16,9 @@
 .timer{
     flex:1;
 }
+#score{
+    flex: 1;
+}
 
 /* Main Section Content */
 .main-content{
