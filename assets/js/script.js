@@ -6,6 +6,10 @@ console.log(timerEl);
 var timer = 100;
 //Global sore variable
 var score = 0; 
+//Global question number
+var theQuestionNumber = 0;
+//Generate the questions
+var questionArray = generateQuizQuestions();
 //place holder for generated start button
 
 //Genetate the introduction text
@@ -47,29 +51,37 @@ function removeIntro(){
 }
 
 //generate the quiz slide
-function generateQuiz() {
+function generateQuiz(questionArray) {
+    console.log("I is at" + theQuestionNumber);
     var divWrapperEl = document.createElement("div");
     divWrapperEl.className="text-wrapper";
     //Make <h2>
     var h2El = document.createElement("h2");
     h2El.className = "quiz-header";
-    h2El.textContent = "This is a sample question. I hope it works!" + timer;
+    //Update the question header to be the propper question from array
+    h2El.textContent = questionArray[theQuestionNumber].question;
     //add to div
     divWrapperEl.appendChild(h2El);
-    for(var i = 1; i <= 4; i++){
-        var optionEl = generateOption(i);
-        divWrapperEl.appendChild(optionEl);
-    }
-
+    //fill in the question options
+    var option1El = generateOption(questionArray[theQuestionNumber].option1,1);
+    var option2El = generateOption(questionArray[theQuestionNumber].option2,2);
+    var option3El = generateOption(questionArray[theQuestionNumber].option3,3);
+    var option4El = generateOption(questionArray[theQuestionNumber].option4,4);
+    //add to div
+    divWrapperEl.appendChild(option1El);
+    divWrapperEl.appendChild(option2El);
+    divWrapperEl.appendChild(option3El);
+    divWrapperEl.appendChild(option4El);
     //add to main
     mainContentEl.appendChild(divWrapperEl);
 }
 //Generate an option for the quiz
-function generateOption(theOptionumber){
+function generateOption(theOption,theId){
     var optionEl = document.createElement("button");
-    optionEl.innerText = "Option " + theOptionumber;
+    optionEl.innerText =  theOption;
     optionEl.className = "quiz-button";
-    optionEl.setAttribute("data-button-id",theOptionumber);
+    console.log(theId);
+    optionEl.setAttribute("data-button-id",theId);
     return optionEl;
 }
 
@@ -137,24 +149,33 @@ function generateQuizQuestions(){
         option4:"dinner time",
         correctOption: 1
     };
+    //Add question to array
+    questionArray[0] = questionOne;
+    questionArray[1] = questionTwo;
+    //Return the array full of questions
+    return questionArray;
 
 }
 //Call methid to clear intro and start quiz
 function quizStartHandler(){
+    //Get rid of intro
     document.querySelector(".text-wrapper").remove();
+    //Start the timer
     startTimer();
-    generateQuiz();
+    //generate the quiz
+    generateQuiz(questionArray);
 }
 //When a button is clicked this will reset it to the next question
 function generateNextQuestion(){
     updateScore();
     document.querySelector(".text-wrapper").remove();
-    generateQuiz();
+    theQuestionNumber++;
+    generateQuiz(questionArray);
 }
 function updateScore(){
     var scoreEl = document.querySelector("#score");
     scoreEl.textContent = "Score: " + score;
 }
 mainContentEl.addEventListener("click", optionSelectorHandler);
-generateQuizQuestions();
+
 generateIntro();
