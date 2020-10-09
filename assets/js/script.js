@@ -1,7 +1,6 @@
 mainContentEl = document.querySelector(".main-content");
 //Find the timer
 var timerEl = document.querySelector("#timer");
-console.log(timerEl);
 //Global Timer Variable
 var timer = 100;
 //Global sore variable
@@ -17,7 +16,6 @@ function generateIntro(){
     //Make Div Wrapper 
     var divWrapperEl = document.createElement("div");
     divWrapperEl.className = "text-wrapper";
-    //console.log(divWrapperEl);
     //Make <h2>
     var h2El = document.createElement("h2");
     h2El.className = "intro-text-h2";
@@ -45,9 +43,7 @@ function generateIntro(){
 //Remove the intro
 function removeIntro(){
     var intro = document.querySelector("div.text-wrapper");
-    //console.log(intro);
     intro.remove();
-    //console.log("Intro Removed!");
 }
 
 //generate the quiz slide
@@ -58,7 +54,6 @@ function generateQuiz(questionArray) {
     var h2El = document.createElement("h2");
     h2El.className = "quiz-header";
     //Update the question header to be the propper question from array
-    console.log(questionArray[theQuestionNumber]);
     h2El.textContent = questionArray[theQuestionNumber].question;
     //add to div
     divWrapperEl.appendChild(h2El);
@@ -99,7 +94,6 @@ function startTimer(){
 
 //Check which button was clicked
 function optionSelectorHandler(event){
-    //console.log(event.target);
     //Check if and which buttons were clicked
     //Call method to check if right, andthen make another quiz
     if(event.target.getAttribute("data-button-id") == 1){
@@ -113,7 +107,6 @@ function optionSelectorHandler(event){
     }
     if(event.target.getAttribute("data-button-id") == 2){
         console.log("You have clicked option 2!");
-        console.log(questionArray[theQuestionNumber].correctOption);
         if(questionArray[theQuestionNumber].correctOption == 2){
             score += 10;
         }else{
@@ -215,6 +208,51 @@ function generateNextQuestion(){
 
 //Generate the ending to the quiz
 function generateEnding(){
+    divWrapperEl = document.createElement("div");
+    //make h2 el 
+    h2El = document.createElement("h2");
+    h2El.innerText = "All Done! You Moron!";
+    // Add onto div
+    divWrapperEl.appendChild(h2El);
+    //Make p tag to house smaller text
+    pEl = document.createElement("p");
+    pEl.innerText ="Your final score was : " +score;
+    //Add p tag to div
+    divWrapperEl.appendChild(pEl);
+    //Add div into the main form
+    //give making form  to a seperate method
+    saveHighSchoreEl = generateHighSchoreForm();
+    divWrapperEl.appendChild(saveHighSchoreEl);
+    mainContentEl.appendChild(divWrapperEl);
+}
+//Create the high score form to enter name
+function generateHighSchoreForm(){
+    //make div wrapper
+    divWrapperEl2 = document.createElement("div");
+    divWrapperEl2.className = "high-score-form-div";
+    //Make p
+    pEl = document.createElement("p");
+    pEl.innerText ="Enter Initials";
+    //add p to div
+    divWrapperEl.appendChild(pEl);
+    //make form
+    formEl = document.createElement("form");
+    formEl.className = "high-score-form";
+    inputEl = document.createElement("input");
+    inputEl.setAttribute("type", "text");
+    formEl.appendChild(inputEl);
+    console.log(formEl);
+    //<Make button
+    highButtonEl = document.createElement("input");
+    highButtonEl.innerText = "Submit";
+    highButtonEl.setAttribute("type","submit");
+    highButtonEl.setAttribute("value", "Submit");
+    highButtonEl.id = "high-score-submit";
+    //Add button
+    formEl.appendChild(highButtonEl);
+    //Addto div
+    divWrapperEl2.appendChild(formEl);
+    return divWrapperEl2;
 
 }
 function updateScore(){
