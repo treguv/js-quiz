@@ -80,7 +80,6 @@ function generateOption(theOption,theId){
     var optionEl = document.createElement("button");
     optionEl.innerText =  theOption;
     optionEl.className = "quiz-button";
-    console.log(theId);
     optionEl.setAttribute("data-button-id",theId);
     return optionEl;
 }
@@ -105,31 +104,37 @@ function optionSelectorHandler(event){
     //Call method to check if right, andthen make another quiz
     if(event.target.getAttribute("data-button-id") == 1){
         console.log("You have clicked option 1!");
-        score += 10;
+        if(questionArray[theQuestionNumber].correctOption == 1){
+            score += 10;
+        }
         generateNextQuestion()
     }
     if(event.target.getAttribute("data-button-id") == 2){
         console.log("You have clicked option 2!");
-        score += 15;
+        console.log(questionArray[theQuestionNumber].correctOption);
+        if(questionArray[theQuestionNumber].correctOption == 2){
+            score += 10;
+        }
         generateNextQuestion()
     }
     if(event.target.getAttribute("data-button-id") == 3){
         console.log("You have clicked option 3!");
-        score += 5;
+        if(questionArray[theQuestionNumber].correctOption == 3){
+            score += 10;
+        }
         generateNextQuestion()
     }
     if(event.target.getAttribute("data-button-id") == 4){
         console.log("You have clicked option 4!");
-        score += 20;
+        if(questionArray[theQuestionNumber].correctOption == 4){
+            score += 10;
+        }
         generateNextQuestion()
     }
 }
 //Make an array of quiz objects and return it
 function generateQuizQuestions(){
     var questionArray = [5];
-    // for(var i = 0; i < questionArray.length; i++){
-
-    // }
     var questionOne = {
         questionNumber:1,
         question:"What is hello world?",
@@ -137,7 +142,7 @@ function generateQuizQuestions(){
         option2:"The first program you write",
         option3:"Generic greeting",
         option4:"Some words i dont know",
-        correctOption: 1
+        correctOption: 2
     };
 
     var questionTwo = {
@@ -148,7 +153,7 @@ function generateQuizQuestions(){
         option3:"lunch time",
         option4:"dinner time",
         correctOption: 1
-    };
+    }
     //Add question to array
     questionArray[0] = questionOne;
     questionArray[1] = questionTwo;
