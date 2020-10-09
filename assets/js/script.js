@@ -112,7 +112,33 @@ function optionSelectorHandler(event){
         generateNextQuestion()
     }
 }
+//Make an array of quiz objects and return it
+function generateQuizQuestions(){
+    var questionArray = [5];
+    // for(var i = 0; i < questionArray.length; i++){
 
+    // }
+    var questionOne = {
+        questionNumber:1,
+        question:"What is hello world?",
+        option1:"A spotlight",
+        option2:"The first program you write",
+        option3:"Generic greeting",
+        option4:"Some words i dont know",
+        correctOption: 1
+    };
+
+    var questionTwo = {
+        questionNumber:2,
+        question:"What time is it",
+        option1:"Past midnight",
+        option2:"around 3:40",
+        option3:"lunch time",
+        option4:"dinner time",
+        correctOption: 1
+    };
+
+}
 //Call methid to clear intro and start quiz
 function quizStartHandler(){
     document.querySelector(".text-wrapper").remove();
@@ -130,4 +156,5 @@ function updateScore(){
     scoreEl.textContent = "Score: " + score;
 }
 mainContentEl.addEventListener("click", optionSelectorHandler);
+generateQuizQuestions();
 generateIntro();
