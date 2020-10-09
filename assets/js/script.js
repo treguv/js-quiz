@@ -52,13 +52,13 @@ function removeIntro(){
 
 //generate the quiz slide
 function generateQuiz(questionArray) {
-    console.log("I is at" + theQuestionNumber);
     var divWrapperEl = document.createElement("div");
     divWrapperEl.className="text-wrapper";
     //Make <h2>
     var h2El = document.createElement("h2");
     h2El.className = "quiz-header";
     //Update the question header to be the propper question from array
+    console.log(questionArray[theQuestionNumber]);
     h2El.textContent = questionArray[theQuestionNumber].question;
     //add to div
     divWrapperEl.appendChild(h2El);
@@ -106,6 +106,8 @@ function optionSelectorHandler(event){
         console.log("You have clicked option 1!");
         if(questionArray[theQuestionNumber].correctOption == 1){
             score += 10;
+        }else{
+            timer -= 3;
         }
         generateNextQuestion()
     }
@@ -114,6 +116,8 @@ function optionSelectorHandler(event){
         console.log(questionArray[theQuestionNumber].correctOption);
         if(questionArray[theQuestionNumber].correctOption == 2){
             score += 10;
+        }else{
+            timer -= 3;
         }
         generateNextQuestion()
     }
@@ -121,6 +125,8 @@ function optionSelectorHandler(event){
         console.log("You have clicked option 3!");
         if(questionArray[theQuestionNumber].correctOption == 3){
             score += 10;
+        }else{
+            timer -= 3;
         }
         generateNextQuestion()
     }
@@ -128,13 +134,15 @@ function optionSelectorHandler(event){
         console.log("You have clicked option 4!");
         if(questionArray[theQuestionNumber].correctOption == 4){
             score += 10;
+        }else{
+            timer -= 3;
         }
         generateNextQuestion()
     }
 }
 //Make an array of quiz objects and return it
 function generateQuizQuestions(){
-    var questionArray = [5];
+    var questionArray = [3];
     var questionOne = {
         questionNumber:1,
         question:"What is hello world?",
@@ -154,9 +162,32 @@ function generateQuizQuestions(){
         option4:"dinner time",
         correctOption: 1
     }
+
+    var questionThree = {
+        questionNumber:3,
+        question:"How tired am i?",
+        option1:"Im wide awake",
+        option2:"Not very",
+        option3:"I need a nap",
+        option4:"Why am i still awake",
+        correctOption: 4
+    }
+
+    var questionFour = {
+        questionNumber:4,
+        question:"How bad is this code",
+        option1:"its flawless",
+        option2:"its kinda bad",
+        option3:"It might need some work",
+        option4:"G A R B A G E",
+        correctOption: 4
+    }
     //Add question to array
     questionArray[0] = questionOne;
     questionArray[1] = questionTwo;
+    questionArray[2] = questionThree;
+    questionArray[3] = questionFour;
+    
     //Return the array full of questions
     return questionArray;
 
@@ -175,7 +206,16 @@ function generateNextQuestion(){
     updateScore();
     document.querySelector(".text-wrapper").remove();
     theQuestionNumber++;
-    generateQuiz(questionArray);
+    if(theQuestionNumber >= questionArray.length){
+        generateEnding();
+    }else{
+        generateQuiz(questionArray);
+    }
+}
+
+//Generate the ending to the quiz
+function generateEnding(){
+
 }
 function updateScore(){
     var scoreEl = document.querySelector("#score");
