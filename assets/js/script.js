@@ -4,7 +4,7 @@ var timerEl = document.querySelector("#timer");
 //Find the high score text
 var highScoreEl = document.querySelector(".high-score");
 //Global Timer Variable
-var timer = 10;
+var timer = 60;
 //Global sore variable
 var score = 0; 
 //Global question number
@@ -272,8 +272,16 @@ function submitScoreHandler(event){
     console.log("Score submitted..");
     var userName = document.querySelector(".user-name").value;
     var userScore = score;
-    localStorage.setItem("user-name",userName);
-    localStorage.setItem("user-score", userScore);
+    //if either is equal to null we will update regardless
+    if(localStorage.getItem("user-name") === null || localStorage.getItem("user-score") === null){
+        localStorage.setItem("user-name",userName);
+        localStorage.setItem("user-score", userScore);
+    }
+    //If the new score is more than previous update
+    if(localStorage.getItem("user-score") <= score){
+        localStorage.setItem("user-name",userName);
+        localStorage.setItem("user-score", userScore);
+    }
     //console.log(localStorage.getItem("user-name"),localStorage.getItem("user-score"));
     //Call method to reset game
     resetGame();
@@ -281,7 +289,7 @@ function submitScoreHandler(event){
 function resetGame(){
     //reset all values to their respective starting values
     score = 0;
-    timer = 100;
+    timer = 60;
     theQuestionNumber = 0;
     //remove the submission form
     var submissionForm = document.querySelector(".ending-div-wrapper");
@@ -306,22 +314,33 @@ function highScoreHandler(event){
     //make h2
     h2El = document.createElement("h2");
     h2El.className = "high-score-h2";
-    h2El.innerText = "High Scores";
+    h2El.innerText = "High Score";
     //add h2 to the div
     divWrapperEl.appendChild(h2El);
     //Make seperate div with to house the scores
     divScoreWrapper = document.createElement("div");
     //For look to make the 4 options 
-    for(var i = 0; i < 4; i++){
         //make the rws for the high score
         var rowEl = document.createElement("p")
         rowEl.className = "high-score-row";
-        rowEl.innerHTML = "You Score is " + i;
+        rowEl.innerHTML = localStorage.getItem("user-name") + " : " + localStorage.getItem("user-score");
         divWrapperEl.appendChild(rowEl);
-    }
-
+    //Make exut byttin
+    exitButtonEl = document.createElement("button");
+    exitButtonEl.className = "high-score-button"
+    exitButtonEl.addEventListener("click",exitButtonHandler);
+    exitButtonEl.innerText = "Menu";
+    //add to div
+    divWrapperEl.appendChild(exitButtonEl);
     //add all to main page
     mainContentEl.appendChild(divWrapperEl);
+}
+//Return to menu when exit button clicked
+function exitButtonHandler(event){
+    if(document.querySelector(".high-score-div-wrapper") !== null){
+        document.querySelector(".high-score-div-wrapper").remove();
+    }
+    generateIntro();
 }
 mainContentEl.addEventListener("click", optionSelectorHandler);
 //Add event listener to the high scores tab
