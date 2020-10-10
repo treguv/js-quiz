@@ -103,7 +103,7 @@ function optionSelectorHandler(event){
         if(questionArray[theQuestionNumber].correctOption == 1){
             score += 10;
         }else{
-            timer -= 3;
+            timer -= 10;
         }
         generateNextQuestion()
     }
@@ -112,7 +112,7 @@ function optionSelectorHandler(event){
         if(questionArray[theQuestionNumber].correctOption == 2){
             score += 10;
         }else{
-            timer -= 3;
+            timer -= 10;
         }
         generateNextQuestion()
     }
@@ -121,7 +121,7 @@ function optionSelectorHandler(event){
         if(questionArray[theQuestionNumber].correctOption == 3){
             score += 10;
         }else{
-            timer -= 3;
+            timer -= 10;
         }
         generateNextQuestion()
     }
@@ -130,7 +130,7 @@ function optionSelectorHandler(event){
         if(questionArray[theQuestionNumber].correctOption == 4){
             score += 10;
         }else{
-            timer -= 3;
+            timer -= 10;
         }
         generateNextQuestion()
     }
@@ -212,6 +212,7 @@ function generateNextQuestion(){
 function generateEnding(){
     clearInterval(countdownTimer);
     divWrapperEl = document.createElement("div");
+    divWrapperEl.className = "ending-div-wrapper";
     //make h2 el 
     h2El = document.createElement("h2");
     h2El.innerText = "All Done! You Moron!";
@@ -274,8 +275,15 @@ function submitScoreHandler(event){
     resetGame();
 }
 function resetGame(){
+    //reset all values to their respective starting values
     score = 0;
     timer = 100;
+    theQuestionNumber = 0;
+    //remove the submission form
+    var submissionForm = document.querySelector(".ending-div-wrapper");
+    submissionForm.remove();
+    //generateQuizQuestions();
+    generateIntro();
 }
 function updateScore(){
     var scoreEl = document.querySelector("#score");
