@@ -1,6 +1,8 @@
 mainContentEl = document.querySelector(".main-content");
 //Find the timer
 var timerEl = document.querySelector("#timer");
+//Find the high score text
+var highScoreEl = document.querySelector(".high-score");
 //Global Timer Variable
 var timer = 10;
 //Global sore variable
@@ -291,6 +293,26 @@ function updateScore(){
     var scoreEl = document.querySelector("#score");
     scoreEl.textContent = "Score: " + score;
 }
+//handle the high score button being pressed
+function highScoreHandler(event){
+    //Remove the intro screen
+    if(document.querySelector(".text-wrapper") !== null){
+        document.querySelector(".text-wrapper").remove();
+    }
+    //Generate the score
+    //Make div wraper
+    divWrapperEl = document.createElement("div");
+    divWrapperEl.className = "high-score-div-wrapper";
+    //make h2
+    h2El = document.createElement("h2");
+    h2El.className = "high-score-h2";
+    h2El.innerText = "High Scores";
+    divWrapperEl.appendChild(h2El);
+    //add all to main page
+    mainContentEl.appendChild(divWrapperEl);
+}
 mainContentEl.addEventListener("click", optionSelectorHandler);
+//Add event listener to the high scores tab
+highScoreEl.addEventListener("click",highScoreHandler);
 
 generateIntro();
