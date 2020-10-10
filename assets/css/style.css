@@ -56,3 +56,8 @@
 .high-score-form{
     border:1px black solid;
 }
+.high-score-row{
+    background-color: bisque;
+    border:2px;
+    display:block;
+}

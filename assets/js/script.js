@@ -307,7 +307,19 @@ function highScoreHandler(event){
     h2El = document.createElement("h2");
     h2El.className = "high-score-h2";
     h2El.innerText = "High Scores";
+    //add h2 to the div
     divWrapperEl.appendChild(h2El);
+    //Make seperate div with to house the scores
+    divScoreWrapper = document.createElement("div");
+    //For look to make the 4 options 
+    for(var i = 0; i < 4; i++){
+        //make the rws for the high score
+        var rowEl = document.createElement("p")
+        rowEl.className = "high-score-row";
+        rowEl.innerHTML = "You Score is " + i;
+        divWrapperEl.appendChild(rowEl);
+    }
+
     //add all to main page
     mainContentEl.appendChild(divWrapperEl);
 }
