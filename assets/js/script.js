@@ -9,6 +9,8 @@ var score = 0;
 var theQuestionNumber = 0;
 //Generate the questions
 var questionArray = generateQuizQuestions();
+//Countdown timer
+var countdownTimer;
 //place holder for generated start button
 
 //Genetate the introduction text
@@ -80,8 +82,8 @@ function generateOption(theOption,theId){
 }
 
 //Decrement the timer every second
-function startTimer(){
-    var countdownTimer = setInterval(function(){
+var startTimer =  function(){
+    countdownTimer = setInterval(function(){
         if(timer > 0){
             timer --;
             timerEl.textContent  = "Time: " + timer;
@@ -208,6 +210,7 @@ function generateNextQuestion(){
 
 //Generate the ending to the quiz
 function generateEnding(){
+    clearInterval(countdownTimer);
     divWrapperEl = document.createElement("div");
     //make h2 el 
     h2El = document.createElement("h2");
@@ -239,12 +242,15 @@ function generateHighSchoreForm(){
     formEl = document.createElement("form");
     formEl.className = "high-score-form";
     inputEl = document.createElement("input");
+    inputEl.className = "user-name";
     inputEl.setAttribute("type", "text");
     formEl.appendChild(inputEl);
     console.log(formEl);
     //<Make button
     highButtonEl = document.createElement("input");
     highButtonEl.innerText = "Submit";
+    //Add on click listenerto the submit button
+    highButtonEl.addEventListener("click",submitScoreHandler);
     highButtonEl.setAttribute("type","submit");
     highButtonEl.setAttribute("value", "Submit");
     highButtonEl.id = "high-score-submit";
@@ -254,6 +260,22 @@ function generateHighSchoreForm(){
     divWrapperEl2.appendChild(formEl);
     return divWrapperEl2;
 
+}
+//handle the storing of the high score
+function submitScoreHandler(event){
+    event.preventDefault();
+    console.log("Score submitted..");
+    var userName = document.querySelector(".user-name").value;
+    var userScore = score;
+    localStorage.setItem("user-name",userName);
+    localStorage.setItem("user-score", userScore);
+    //console.log(localStorage.getItem("user-name"),localStorage.getItem("user-score"));
+    //Call method to reset game
+    resetGame();
+}
+function resetGame(){
+    score = 0;
+    timer = 100;
 }
 function updateScore(){
     var scoreEl = document.querySelector("#score");
