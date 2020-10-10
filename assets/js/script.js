@@ -2,7 +2,7 @@ mainContentEl = document.querySelector(".main-content");
 //Find the timer
 var timerEl = document.querySelector("#timer");
 //Global Timer Variable
-var timer = 100;
+var timer = 10;
 //Global sore variable
 var score = 0; 
 //Global question number
@@ -88,7 +88,9 @@ var startTimer =  function(){
             timer --;
             timerEl.textContent  = "Time: " + timer;
         }else{
-            clearInterval(countdownTimer)
+            clearInterval(countdownTimer);
+            document.querySelector(".text-wrapper").remove();
+            generateEnding();
         }
     }, 1000);
 }
